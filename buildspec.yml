@@ -17,7 +17,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - ./gradlew clean build 
+      - mvn install
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
@@ -25,6 +25,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - mvn package
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
@@ -35,12 +36,5 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
-    - imagedefinitions.json
-  base-directory: './build/libs'
-reports:
-      test-report-group: #Junit reports
-        files:
-          - 'TEST-boris.maths.MathsApplicationTests.xml'
-        #discard-paths: false #do not remove file paths from test result files
-        base-directory: './build/test-results/test'
+    - target/SpringAWSApp-0.0.1-SNAPSHOT.jar
+    - scripts/*
