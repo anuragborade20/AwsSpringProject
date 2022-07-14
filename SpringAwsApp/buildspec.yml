@@ -36,5 +36,5 @@ phases:
 
 artifacts:
   files:
-    - target/SpringAWSApp-0.0.0-SNAPSHOT.jar
+    - target/SpringAWSApp-0.0.1-SNAPSHOT.jar
     - scripts/*
